@@ -1,0 +1,37 @@
+{
+  "name": "genji-api",
+  "version": "1.0.0",
+  "description": "\"This is the backend file for Genji App\"",
+  "main": "server.ts",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anurudha07/Genji-api.git"
+  },
+  "author": "Anurudha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anurudha07/Genji-api/issues"
+  },
+  "homepage": "https://github.com/anurudha07/Genji-api#readme",
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/multer": "^2.0.0",
+    "@types/node": "^25.3.0",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "mongoose": "^9.2.1",
+    "multer": "^2.0.2"
+  }
+}
