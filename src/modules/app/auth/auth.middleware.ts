@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
+import env from "../../../config/env";
 
 
 export interface AuthRequest extends Request {
@@ -23,7 +24,7 @@ export const requireAuth = (
 
         const token = authHeader.split(" ")[1];
 
-        const secret = process.env.SECRET_TOKEN;
+        const secret = env.SECRET_TOKEN;
 
         if (!secret) {
             throw new Error('SECRET_TOKEN is not defined in environment variables');
