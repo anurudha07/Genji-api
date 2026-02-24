@@ -3,9 +3,10 @@ import otpGenerator from "otp-generator";
 import User from "./auth.model";
 import Otp from "./otp.model";
 import { OAuth2Client } from "google-auth-library";
+import env from "../../../config/env";
 
-const SECRET_TOKEN = process.env.SECRET_TOKEN ?? "secret";
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
+const SECRET_TOKEN = env.SECRET_TOKEN ?? "secret";
+const GOOGLE_CLIENT_ID = env.GOOGLE_CLIENT_ID!;
 const googleClient = new OAuth2Client(GOOGLE_CLIENT_ID);
 
 const signToken = (userId: string) =>
