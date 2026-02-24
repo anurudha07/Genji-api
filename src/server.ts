@@ -4,7 +4,7 @@ import app from './app';
 // Create HTTP server
 const server = http.createServer(app);
 
-const PORT = 5001;
+const PORT = process.env.PORT;
 
 server.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
