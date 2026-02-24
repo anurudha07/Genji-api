@@ -45,7 +45,7 @@ export const verifyOtpService = async (
     phone: string,
     otp: string
 ): Promise<string> => {
-    try {
+
         const record = await Otp.findOne({ phone });
 
         if (!record)
@@ -67,15 +67,11 @@ export const verifyOtpService = async (
 
 
         return signToken(user.id);
-    } catch (err) {
-        throw err;
-    }
 };
 
 // google login
 
 export const googleLoginService = async (idToken: string): Promise<string> => {
-    try {
 
         const ticket = await googleClient.verifyIdToken({
             idToken,
@@ -96,9 +92,5 @@ export const googleLoginService = async (idToken: string): Promise<string> => {
             });
 
         return signToken(user.id);
-
-    } catch {
-        throw new Error("Invalid Google token");
-    }
 };
 
