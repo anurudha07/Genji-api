@@ -41,7 +41,7 @@ export const sendOtpService = async (
             {
                 $set: {
                     otp,
-                    expiresAt: new Date(Date.now() + 30 * 1000),
+                    expiresAt: new Date(Date.now() + 5 * 60 * 1000),
                     wrongAttempts: 0,
                     blockedUntil: null
                 }
@@ -83,7 +83,7 @@ export const verifyOtpService = async (
 
         // block after 3 wrong tries
         if (record.wrongAttempts >= 3) {
-            record.blockedUntil = new Date(Date.now() + 2 *60 * 1000);
+            record.blockedUntil = new Date(Date.now() + 15 * 60 * 1000);
             record.expiresAt = record.blockedUntil;  // keep document alive till block expires
         }
 
