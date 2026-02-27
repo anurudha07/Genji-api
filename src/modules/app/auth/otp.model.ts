@@ -18,4 +18,8 @@ const otpSchema = new Schema(
   { timestamps: true }
 );
 
+// auto delete when expiresAt passes
+// expireAfterSeconds: 0 -->> delete the document exactly at expiredAt
+otpSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
+
 export default mongoose.model("Otp", otpSchema);
