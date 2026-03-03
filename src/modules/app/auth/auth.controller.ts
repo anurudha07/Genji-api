@@ -12,7 +12,7 @@ export const sendOtp = async (
         const { phone } = req.body as SendOtpBody;
 
         if (!phone) {
-            return res.status(400).json({ message: "Phone no. is required" });
+            return res.status(400).json({ message: "Phone number is required" });
         }
 
         await sendOtpService(phone);
