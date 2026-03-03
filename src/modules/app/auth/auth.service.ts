@@ -94,8 +94,8 @@ export const verifyOtpService = async (
 
         record.wrongAttempts++;
 
-        // block after 3 wrong tries
-        if (record.wrongAttempts >= 3) {
+        // block after 5 wrong tries
+        if (record.wrongAttempts >= 5) {
             record.blockedUntil = new Date(Date.now() + 15 * 60 * 1000);
             record.expiresAt = record.blockedUntil;  // keep document alive till block expires
         }
