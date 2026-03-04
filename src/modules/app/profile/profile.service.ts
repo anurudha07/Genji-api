@@ -82,3 +82,32 @@ export const getProfileCardService = async (
     return profile;
 
 };
+
+
+
+// post photo  — min 2 max 4
+
+export const uploadPhotoService = async (
+    userId: string,
+    urls: string[]
+): Promise<IProfile> => {
+
+    const profile = await Profile
+        .findOne({ userId }); 
+
+    if (!profile)
+        throw new Error("Profile not found");
+
+    if (profile.photos.length >= 4)
+        throw new Error("Max 4 photos allowed");
+
+    for (const url of urls) {
+        profile.photos.push(url);
+    } 
+
+    profile.profileCompletionPercentage = calcCompletion(profile);
+
+    await profile.save();
+
+    return profile;
+};

@@ -5,7 +5,9 @@ import {
   getProfileById,
   getProfileCard,
   updateProfile,
+  uploadPhoto,
 } from "./profile.controller";
+import upload from "./profile.middleware";
 
 const profileRouter = Router();
 
@@ -21,5 +23,7 @@ profileRouter.get("/:id", userAuth, getProfileById);
 // simplified card for explore feed
 profileRouter.get("/card/:id", userAuth, getProfileCard);
 
+// upload user photo
+profileRouter.post("/photo", userAuth, upload.array("photo", 4), uploadPhoto);
 
 export default profileRouter;
