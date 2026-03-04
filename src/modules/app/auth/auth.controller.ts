@@ -31,7 +31,7 @@ export const sendOtp = async (
             : String(err);
         res.status(500).json({ 
             success: false,
-            message: `Failed to send OTP... ${errorMessage}`
+            message: `Failed to send OTP. ${errorMessage}`
         });
     }
 };
@@ -99,7 +99,7 @@ export const googleLogin = async (
             : String(err);
         res.status(500).json({ 
             success: false,
-            message: `Google login failed... ${errorMessage}` 
+            message: `Google login failed. ${errorMessage}` 
         });
     }
 };
