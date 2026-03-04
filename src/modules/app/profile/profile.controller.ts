@@ -11,7 +11,7 @@ export const getMyProfile = async (
 
     try {
 
-        if (!req.userId){
+        if (!req.userId) {
             res.status(401).json({
                 success: false,
                 message: 'Authentication failed'
@@ -24,6 +24,7 @@ export const getMyProfile = async (
 
         res.status(200).json({
             success: true,
+            message: "Profile fetched successfully",
             profile
         });
 
@@ -32,7 +33,10 @@ export const getMyProfile = async (
         const errorMessage = err instanceof Error
             ? err.message
             : String(err);
-        res.status(500).json({ errorMessage });
+        res.status(500).json({ 
+            success: false,
+            message: `Failed to get profile... ${errorMessage}` 
+        });
 
     }
 };
@@ -47,7 +51,7 @@ export const updateProfile = async (
 
     try {
 
-        if (!req.userId){
+        if (!req.userId) {
             res.status(401).json({
                 success: false,
                 message: 'Authentication failed'
@@ -61,6 +65,7 @@ export const updateProfile = async (
 
         res.status(200).json({
             success: true,
+            message: "Profile updated successfully",
             profile
         });
 
@@ -69,7 +74,10 @@ export const updateProfile = async (
         const errorMessage = err instanceof Error
             ? err.message
             : String(err);
-        res.status(500).json({ errorMessage });
+        res.status(500).json({ 
+            success: false,
+            message: `Failed to update profile... ${errorMessage }`
+        });
 
     }
 };
