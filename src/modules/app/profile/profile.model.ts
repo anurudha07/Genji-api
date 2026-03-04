@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import { IProfile } from "./profile.types";
+import { ABOUT, FOOD_TYPES, GENDERS, INTERESTS, LOOKING_FOR, PRONOUNS, SEXUAL_ORIENTATIONS, SKIN_TONES, STAR_SIGNS } from "../../../constants/constants";
 
 const profileSchema = new Schema<IProfile>(
   {
@@ -13,25 +14,15 @@ const profileSchema = new Schema<IProfile>(
       type: String,
       required: true
     },
+    age: {
+      type: Number,
+      required: true,
+      min: 18,
+    },
     gender: {
       type: String,
       required: true,
-      enum: [
-        "male",
-        "female",
-        "trans man",
-        "trans woman",
-        "non-binary",
-        "genderqueer",
-        "genderfluid",
-        "agender",
-        "queer",
-        "other",
-      ],
-    },
-    dob: {
-      type: Date,
-      required: true
+      enum: GENDERS
     },
     placeOfBirth: {
       type: String,
@@ -70,18 +61,23 @@ const profileSchema = new Schema<IProfile>(
       default: ""
     },
     about: {
-      type: String,
-      default: ""
+      type: [String],
+      enum: ABOUT,
+      default: [],
+      validate: {
+        validator: (arr: string[]) => arr.length <= 12,
+        message: "Maximum 12 about tags are allowed",
+      },
     },
     foodType: {
       type: String,
       default: "",
-      enum: ["", "vegetarian", "non-vegetarian", "vegan", "eggetarian"],
+      enum: FOOD_TYPES,
     },
     skinTone: {
       type: String,
       default: "",
-      enum: ["", "fair", "wheatish", "dusky", "dark"],
+      enum: SKIN_TONES,
     },
     drinkingHabit: {
       type: Boolean,
@@ -103,63 +99,67 @@ const profileSchema = new Schema<IProfile>(
       type: String,
       default: ""
     },
-    isProfileVisibleForAll: {
-      type: Boolean,
-      default: true
-    },
     lookingFor: {
-      type: String,
-      default: "",
-      enum: [
-        "",
-        "friendship",
-        "dating",
-        "long-term relationship",
-        "casual",
-        "networking",
-        "other",
-      ],
+      type: [String],
+      enum: LOOKING_FOR,
+      default: [],
+      validate: {
+        validator: (arr: string[]) => arr.length <= 2,
+        message: "Max 2 looking for",
+      },
     },
     starSign: {
       type: String,
       default: "",
-      enum: [
-        "",
-        "aries", "taurus", "gemini", "cancer",
-        "leo", "virgo", "libra", "scorpio",
-        "sagittarius", "capricorn", "aquarius", "pisces",
-      ],
+      enum: STAR_SIGNS
     },
     pronouns: {
       type: String,
       default: "",
-      enum: ["", "he/him", "she/her", "they/them", "he/they", "she/they", "any", "other"],
+      enum: PRONOUNS,
     },
     sexualOrientation: {
       type: String,
       default: "",
-      enum: ["", "gay", "lesbian", "bisexual", "pansexual", "asexual", "queer", "straight", "other"],
+      enum: SEXUAL_ORIENTATIONS
     },
     interestedIn: {
       type: [String],
+      enum: GENDERS,
       default: [],
     },
-    photos: { 
-      type: [String], 
-      default: [] 
-    },           // max 3
-    premiumPhotos: { 
-      type: [String], 
-      default: [] 
+    photos: {
+      type: [String],
+      default: [],
+      validate: { validator: (arr: string[]) => arr.length <= 4, message: "Max 4 photos" },
+    },           // max 4 
+    premiumPhotos: {
+      type: [String],
+      default: []
     },
-    profileCompletionPercentage: { 
-      type: Number, 
-      default: 0 
+    profileCompletionPercentage: {
+      type: Number,
+      default: 0
     },
-    isCreator: { 
-      type: Boolean, 
-      default: false 
-    }
+    isCreator: {
+      type: Boolean,
+      default: false
+    },
+    bio: {
+      type: String,
+      default: "",
+      maxlength: 120
+    },
+
+    interests: {
+      type: [String],
+      enum: INTERESTS,
+      default: [],
+      validate: {
+        validator: (arr: string[]) => arr.length <= 5,
+        message: "Max 5 interests allowed",
+      },
+    },
   },
   { timestamps: true }
 );

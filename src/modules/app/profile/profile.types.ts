@@ -4,7 +4,8 @@ import mongoose from "mongoose";
 export interface UpdateProfileBody {
   name: string;
   gender: string;
-  dob: string;
+  age: number;
+  bio?: string;
   placeOfBirth?: string;
   height?: number;
   weight?: number;
@@ -14,7 +15,7 @@ export interface UpdateProfileBody {
   currentAddress?: string;
   work?: string;
   occupationDetails?: string;
-  about?: string;
+  about?: string[];
   foodType?: string;
   skinTone?: string;
   drinkingHabit?: boolean;
@@ -22,13 +23,12 @@ export interface UpdateProfileBody {
   physicallyChallenged?: boolean;
   religion?: string;
   motherTongue?: string;
-  isProfileVisibleForAll?: boolean;
-  lookingFor?: string;
+  lookingFor?: string[];
+  interests?: string[];
   starSign?: string;
   pronouns?: string;
   interestedIn?: string[];
   sexualOrientation?: string;
-
 }
 
 export interface UpdateProfileRequest extends Request {
@@ -36,16 +36,12 @@ export interface UpdateProfileRequest extends Request {
   userId?: string;
 }
 
-export interface AuthRequest extends Request {
-  userId?: string;
-}
-
 
 export interface IProfile extends Document {
   userId: mongoose.Types.ObjectId;
   name: string;
+  age: number;
   gender: string;
-  dob: Date;
   placeOfBirth: string;
   height: number;
   weight: number;
@@ -55,7 +51,7 @@ export interface IProfile extends Document {
   currentAddress: string;
   work: string;
   occupationDetails: string;
-  about: string;
+  about: string[];
   foodType: string;
   skinTone: string;
   drinkingHabit: boolean;
@@ -63,14 +59,15 @@ export interface IProfile extends Document {
   physicallyChallenged: boolean;
   religion: string;
   motherTongue: string;
-  isProfileVisibleForAll: boolean;
-  lookingFor: string;
+  lookingFor: string[];
   starSign: string;
-  photos: string[];           // max 3 — cloudinary URLs
+  photos: string[];           // max 4 — cloudinary URLs
   premiumPhotos: string[];    // creators only — cloudinary URLs
   profileCompletionPercentage: number;
   pronouns: string;
   sexualOrientation: string;
-  interestedIn: string[];
+  bio: string;
   isCreator: boolean;
+  interests: string[];
+  interestedIn: string[];
 }

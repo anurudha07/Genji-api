@@ -5,7 +5,7 @@ import { AuthRequest } from "./auth.types";
 
 
 
-export const requireAuth = (
+export const userAuth = (
     req: AuthRequest,
     res: Response,
     next: NextFunction
