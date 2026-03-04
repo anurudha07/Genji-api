@@ -1,37 +1,5 @@
-import { Request } from "express";
 import mongoose from "mongoose";
 import { Document } from "mongoose";
-
-export interface UpdateProfileBody {
-  name: string;
-  gender: string;
-  age: number;
-  bio?: string;
-  placeOfBirth?: string;
-  height?: number;
-  weight?: number;
-  city?: string;
-  state?: string;
-  country?: string;
-  work?: string;
-  about: string[];
-  foodType?: string;
-  skinTone?: string;
-  religion?: string;
-  motherTongue?: string;
-  lookingFor: string[];
-  interests: string[];
-  starSign?: string;
-  pronouns?: string;
-  interestedIn?: string[];
-  sexualOrientation?: string;
-  photos: string[];  
-}
-
-export interface UpdateProfileRequest extends Request {
-  body: UpdateProfileBody;
-  userId?: string;
-}
 
 
 export interface IProfile extends Document {

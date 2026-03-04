@@ -16,7 +16,8 @@ const profileSchema = new Schema<IProfile>(
     age: {
       type: Number,
       required: true,
-      min: 18,
+      min: [18, "Age must be at least 18"],
+      max: [90, "Age must be less than 90"]
     },
     gender: {
       type: String,
