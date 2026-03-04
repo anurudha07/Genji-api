@@ -41,3 +41,44 @@ export const updateProfileService = async (
 
     return profile;
 };
+
+
+//  get someone's full profile — premium locked until paid
+
+export const getProfileByIdService = async (
+    profileUserId: string,
+    hasPaid: boolean
+): Promise<IProfile> => {
+
+    const profile = await Profile
+        .findOne({ userId: profileUserId });
+
+    if (!profile)
+        throw new Error("Profile not found");
+
+    if (!hasPaid)
+        profile.premiumPhotos = [];
+
+    return profile;
+};
+
+
+
+//  get card data for explore feed
+
+export const getProfileCardService = async (
+    userId: string
+): Promise<Partial<IProfile>> => {
+
+    const profile = await Profile
+        .findOne({ userId })
+        .select(
+            "name age pronouns bio gender photos lookingFor about interests city state"
+        );
+
+    if (!profile)
+        throw new Error("Profile not found");
+
+    return profile;
+
+};

@@ -22,14 +22,17 @@ export const sendOtp = async (
         await sendOtpService(phone);
 
         res.status(200).json({ 
-            success: false,
+            success: true,
             message: "OTP sent successfully" 
         });
     } catch (err) {
         const errorMessage = err instanceof Error
             ? ` ${err.message}`
             : String(err);
-        res.status(500).json({ message: "Failed to send OTP...", errorMessage });
+        res.status(500).json({ 
+            success: false,
+            message: `Failed to send OTP... ${errorMessage}`
+        });
     }
 };
 
@@ -51,6 +54,7 @@ export const verifyOtp = async (
         const token = await verifyOtpService(phone, otp);
 
         res.status(200).json({
+            success: true,
             message: "Login successful",
             token
         });
@@ -59,7 +63,10 @@ export const verifyOtp = async (
         const errorMessage = err instanceof Error
             ? ` ${err.message}`
             : String(err);
-        res.status(400).json({ message: "Invalid OTP:", errorMessage });
+        res.status(400).json({ 
+            success: false,
+            message: `Invalid OTP: ${errorMessage}`
+        });
         
     }
 };
@@ -82,12 +89,18 @@ export const googleLogin = async (
 
         const token = await googleLoginService(idToken);
 
-        res.status(200).json({ token });
+        res.status(200).json({ 
+            success: true,
+            token 
+        });
     } catch (err) {
         const errorMessage = err instanceof Error
             ? ` ${err.message}`
             : String(err);
-        res.status(500).json({ message: "Google login failed", errorMessage });
+        res.status(500).json({ 
+            success: false,
+            message: `Google login failed... ${errorMessage}` 
+        });
     }
 };
 
