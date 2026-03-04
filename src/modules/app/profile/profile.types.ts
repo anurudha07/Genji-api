@@ -14,17 +14,18 @@ export interface UpdateProfileBody {
   state?: string;
   country?: string;
   work?: string;
-  about?: string[];
+  about: string[];
   foodType?: string;
   skinTone?: string;
   religion?: string;
   motherTongue?: string;
-  lookingFor?: string[];
-  interests?: string[];
+  lookingFor: string[];
+  interests: string[];
   starSign?: string;
   pronouns?: string;
   interestedIn?: string[];
   sexualOrientation?: string;
+  photos: string[];  
 }
 
 export interface UpdateProfileRequest extends Request {

@@ -37,11 +37,11 @@ const profileSchema = new Schema<IProfile>(
     },        // kg
     city: {
       type: String,
-      default: ""
+      default: "",
     },
     state: {
       type: String,
-      default: ""
+      default: "",
     },
     country: {
       type: String,
@@ -54,11 +54,11 @@ const profileSchema = new Schema<IProfile>(
     about: {
       type: [String],
       enum: ABOUT,
-      default: [],
       validate: {
-        validator: (arr: string[]) => arr.length <= 8,
-        message: "Maximum 8 about tags are allowed",
+        validator: (arr: string[]) => arr.length >= 4 && arr.length <= 8,
+        message: "Select between 4 and 8 about tags",
       },
+      required: true
     },
     foodType: {
       type: String,
@@ -82,11 +82,11 @@ const profileSchema = new Schema<IProfile>(
     lookingFor: {
       type: [String],
       enum: LOOKING_FOR,
-      default: [],
       validate: {
-        validator: (arr: string[]) => arr.length <= 2,
-        message: "Max 2 looking for",
+        validator: (arr: string[]) => arr.length >= 1 && arr.length <= 2,
+        message: "Select 1 or 2 options for what you're looking for",
       },
+      required: true
     },
     starSign: {
       type: String,
@@ -110,8 +110,8 @@ const profileSchema = new Schema<IProfile>(
     },
     photos: {
       type: [String],
-      default: [],
-      validate: { validator: (arr: string[]) => arr.length >= 2 && arr.length <= 4, message: "Minimum of 2 photos and maximum of 4 photos are allowed for now" },
+      validate: { validator: (arr: string[]) => arr.length >= 2 && arr.length <= 4, message: "Upload between 2 and 4 photos" },
+      required: true
     },           // max 4 
     premiumPhotos: {
       type: [String],
@@ -128,16 +128,16 @@ const profileSchema = new Schema<IProfile>(
     bio: {
       type: String,
       default: "",
-      maxlength: 20
+      maxlength: 80
     },
     interests: {
       type: [String],
       enum: INTERESTS,
-      default: [],
       validate: {
-        validator: (arr: string[]) => arr.length <= 5,
-        message: "Max 5 interests allowed",
+        validator: (arr: string[]) => arr.length >= 3 && arr.length <= 5,
+        message: "Select between 3 and 5 interests",
       },
+      required: true
     },
     lastActiveAt: {
       type: Date,
