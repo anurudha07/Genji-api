@@ -7,20 +7,22 @@ import { getMyProfileService, updateProfileService } from "./profile.service";
 export const getMyProfile = async (
     req: AuthRequest,
     res: Response
-): Promise<Response> => {
+): Promise<void> => {
 
     try {
 
-        if (!req.userId)
-            return res.status(401).json({
+        if (!req.userId){
+            res.status(401).json({
                 success: false,
                 message: 'Authentication failed'
             })
+            return;
+        }
 
         const profile = await getMyProfileService(req.userId);
 
 
-        return res.status(200).json({
+        res.status(200).json({
             success: true,
             profile
         });
@@ -30,7 +32,7 @@ export const getMyProfile = async (
         const errorMessage = err instanceof Error
             ? err.message
             : String(err);
-        return res.status(500).json({ errorMessage });
+        res.status(500).json({ errorMessage });
 
     }
 };
@@ -41,21 +43,23 @@ export const getMyProfile = async (
 export const updateProfile = async (
     req: AuthRequest,
     res: Response
-): Promise<Response> => {
+): Promise<void> => {
 
     try {
 
-        if (!req.userId)
-            return res.status(401).json({
+        if (!req.userId){
+            res.status(401).json({
                 success: false,
                 message: 'Authentication failed'
             })
+            return;
+        }
 
         const userId = req.userId;
 
         const profile = await updateProfileService(userId, req.body);
 
-        return res.status(200).json({
+        res.status(200).json({
             success: true,
             profile
         });
@@ -65,7 +69,7 @@ export const updateProfile = async (
         const errorMessage = err instanceof Error
             ? err.message
             : String(err);
-        return res.status(500).json({ errorMessage });
+        res.status(500).json({ errorMessage });
 
     }
 };
