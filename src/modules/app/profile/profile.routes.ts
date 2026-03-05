@@ -33,7 +33,7 @@ profileRouter.post("/photo", userAuth, upload.array("photo", 4), uploadPhoto);
 profileRouter.delete("/photo", userAuth, deletePhoto);
 
 // upload premium photo
-profileRouter.post("/upload-premium", userAuth, upload.array("premium-photo", 12), uploadPremiumPhoto);
+profileRouter.post("/premium-photo", userAuth, upload.array("premium-photo", 12), uploadPremiumPhoto);
 
 // delete uploaded premium photo
 profileRouter.delete("/premium-photo", userAuth, deletePremiumPhoto);
