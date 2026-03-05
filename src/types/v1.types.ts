@@ -27,7 +27,8 @@ export interface UserBody {
   interestedIn?: string[];
   sexualOrientation?: string;
   photos: string[];
-  urlToDelete: string
+  urlToDelete: string;
+  premiumUrlToDelete: string;
 }
 
 // authenticated user type declaration for req object

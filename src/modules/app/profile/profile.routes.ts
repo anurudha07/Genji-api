@@ -2,6 +2,7 @@ import { Router } from "express";
 import { userAuth } from "../auth/auth.middleware";
 import {
   deletePhoto,
+  deletePremiumPhoto,
   getMyProfile,
   getProfileById,
   getProfileCard,
@@ -33,5 +34,8 @@ profileRouter.delete("/photo", userAuth, deletePhoto);
 
 // upload premium photo
 profileRouter.post("/upload-premium", userAuth, upload.array("premium-photo", 12), uploadPremiumPhoto);
+
+// delete uploaded premium photo
+profileRouter.delete("/premium-photo", userAuth, deletePremiumPhoto);
 
 export default profileRouter;
