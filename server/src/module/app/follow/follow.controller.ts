@@ -1,6 +1,6 @@
 import { AuthRequest } from "../../../type/v1.type";
 import { Response } from "express";
-import { sendFollowRequestService } from "./follow.service";
+import { respondToFollowRequestService, sendFollowRequestService } from "./follow.service";
 
 
 //  send follow request
@@ -50,7 +50,7 @@ export const respondToFollowRequest = async (
     const { targetUserId } = req.params;
     const { action } = req.body; // "accept" or "decline"
  
-    if (action !== "accept" && action !== "decline") {
+    if (action !== "accepted" && action !== "declined") {
       res.status(400).json({ 
         success: false, 
         message: "Action must be 'accept' or 'decline'" 
@@ -58,11 +58,11 @@ export const respondToFollowRequest = async (
       return;
     }
  
-    const request = await respondToFollowRequestService(currentUserId, targetUserId, action);
+    const request = await respondToFollowRequestService(currentUserId, targetUserId as string, action);
  
     res.status(200).json({
       success: true,
-      message: action === "accept" ? "Follow request accepted" : "Follow request declined",
+      message: action === "accepted" ? "Follow request accepted" : "Follow request declined",
       request,
     });
 

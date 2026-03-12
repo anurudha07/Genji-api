@@ -22,7 +22,7 @@ export const sendFollowRequestService = async (
   .findOne({ 
     fromUserId: from, 
     toUserId: to 
-   });  console.log(existing)
+   }); 
  
   // if already pending, don't allow a new request
   if (existing && (existing.status === FOLLOW_STATUS.PENDING ))
@@ -49,4 +49,33 @@ export const sendFollowRequestService = async (
  
   return request;
 };
+
  
+
+// respond to follow request service 
+
+export const respondToFollowRequestService = async (
+  currentUserId: string,   // the person who received the request (me)
+  fromUserId: string,      // the person who sent the request
+  action: "accepted" | "declined"
+): Promise<IFollow> => {
+ 
+  const from = new mongoose.Types.ObjectId(fromUserId);
+  const to = new mongoose.Types.ObjectId(currentUserId);
+ 
+  const request = await Follow
+  .findOne({ 
+    fromUserId: from, 
+    toUserId: to, 
+    status: FOLLOW_STATUS.PENDING 
+  });
+ 
+  if (!request)
+    throw new Error("No pending follow request found from this user");
+ 
+  // update status based on action — keep the doc either way
+  request.status = action === "accepted" ? FOLLOW_STATUS.ACCEPTED : FOLLOW_STATUS.DECLINED;
+  await request.save();
+ 
+  return request;
+};
