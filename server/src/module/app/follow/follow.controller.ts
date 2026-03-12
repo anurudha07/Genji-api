@@ -78,3 +78,38 @@ export const respondToFollowRequest = async (
 
   }
 };
+
+
+
+// withdrawal follow request
+
+export const withdrawalFollowRequest = async (
+  req: AuthRequest,
+  res: Response
+): Promise<void> => {
+
+  try {
+    const fromUserId = req.userId as string;
+    const { targetUserId } = req.params;
+ 
+    const request = await withdrawFollowRequestService(fromUserId, targetUserId as string);
+ 
+    res.status(200).json({ 
+      success: true, 
+      message: "Follow request withdrawn successfully", 
+      request 
+    });
+
+  } catch (err) {
+
+    const errorMessage = err instanceof Error 
+    ? err.message 
+    : String(err);
+    res.status(400).json({ 
+      success: false, 
+      message: `Failed to respond to request. ${errorMessage}` 
+    });
+
+  }
+};
+ 
