@@ -30,6 +30,7 @@ export interface UserBody {
   photos: string[];
   urlToDelete: string;
   premiumUrlToDelete: string;
+  action: string;
 }
 
 // authenticated user type declaration for req object
