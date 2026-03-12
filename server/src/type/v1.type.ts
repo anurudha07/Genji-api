@@ -1,4 +1,5 @@
 import { Request } from "express";
+import mongoose, { Types } from "mongoose";
 
 export interface UserBody {
   phone: string;
@@ -29,6 +30,8 @@ export interface UserBody {
   photos: string[];
   urlToDelete: string;
   premiumUrlToDelete: string;
+  fromUserId: Types.ObjectId;
+  toUserId: Types.ObjectId
 }
 
 // authenticated user type declaration for req object
