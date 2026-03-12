@@ -142,7 +142,7 @@ export const unfollowUser = async (
     : String(err);
     res.status(400).json({ 
       success: false, 
-      message: errorMessage 
+      message: `Failed to unfollow user. ${errorMessage}`
     });
 
   }
