@@ -1,6 +1,7 @@
 import { AuthRequest } from "../../../type/v1.type";
 import { Response } from "express";
 import { removeFollowerService, respondToFollowRequestService, sendFollowRequestService, unfollowUserService, withdrawalFollowRequestService } from "./follow.service";
+import { getPagination } from "../../../util/getPagination";
 
 
 //  send follow request
@@ -178,6 +179,42 @@ export const removeFollower = async (
     res.status(400).json({ 
       success: false, 
       message: `Failed to remove follower. ${errorMessage}` 
+    });
+
+  }
+};
+ 
+
+
+// get followers list
+
+export const getFollowersList = async (
+  req: AuthRequest,
+  res: Response
+): Promise<void> => {
+
+  try {
+
+    const currentUserId = req.userId as string;
+
+    const { page, limit } = getPagination(req);
+ 
+    const result = await getFollowersListService(currentUserId, page, limit);
+ 
+    res.status(200).json({ 
+      success: true, 
+      message: "Followers list fetched", 
+      ...result 
+    });
+
+  } catch (err) {
+
+    const errorMessage = err instanceof Error 
+    ? err.message 
+    : String(err);
+    res.status(500).json({ 
+      success: false, 
+      message: `Failed to get followers list. ${errorMessage}`
     });
 
   }

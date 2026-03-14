@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { userAuth } from "../auth/auth.middleware";
 import {
+  getFollowersList,
   removeFollower,
   respondToFollowRequest,
   sendFollowRequest,
@@ -12,6 +13,8 @@ import {
 const followRouter = Router();
 
 
+// get my followers list
+followRouter.get("/followers-list", userAuth, getFollowersList);
 
 // send a follow request to another user
 followRouter.post("/request/:targetUserId", userAuth, sendFollowRequest);
