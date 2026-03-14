@@ -1,6 +1,6 @@
 import { AuthRequest } from "../../../type/v1.type";
 import { Response } from "express";
-import { removeFollowerService, respondToFollowRequestService, sendFollowRequestService, unfollowUserService, withdrawalFollowRequestService } from "./follow.service";
+import { getFollowersListService, removeFollowerService, respondToFollowRequestService, sendFollowRequestService, unfollowUserService, withdrawalFollowRequestService } from "./follow.service";
 import { getPagination } from "../../../util/getPagination";
 
 
@@ -197,13 +197,13 @@ export const getFollowersList = async (
 
     const currentUserId = req.userId as string;
 
-    const { page, limit } = getPagination(req);
+    const { page, limit, skip } = getPagination(req);
  
-    const result = await getFollowersListService(currentUserId, page, limit);
+    const result = await getFollowersListService(currentUserId, page, limit, skip);
  
     res.status(200).json({ 
       success: true, 
-      message: "Followers list fetched", 
+      message: "Followers list fetched successfully", 
       ...result 
     });
 
