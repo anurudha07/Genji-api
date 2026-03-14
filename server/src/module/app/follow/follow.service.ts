@@ -1,6 +1,6 @@
 
 import mongoose from "mongoose";
-import { IFollow } from "./follow.type";
+import { IFollow, PaginatedResult } from "./follow.type";
 import Follow from './follow.model'
 import { FOLLOW_STATUS } from "./follow.constant";
 
@@ -164,4 +164,42 @@ export const removeFollowerService = async (
   await follow.save();
  
   return follow;
+};
+
+
+
+// get all users who follow me 
+
+export const getFollowersListService = async (
+  currentUserId: string,
+  page: number,
+  limit: number,
+  skip: number
+): Promise<PaginatedResult> => {
+
+
+  const data = await Follow
+  .find({
+    toUserId: currentUserId,
+    status: FOLLOW_STATUS.ACCEPTED
+  })
+  .populate("fromUserId", "name photo")  
+  .sort({ createdAt: -1 })
+  .skip(skip)
+  .limit(limit);
+
+  //  count total matching documents for pagination
+  const totalCount = await Follow
+  .countDocuments({    
+    toUserId: currentUserId,
+    status: FOLLOW_STATUS.ACCEPTED
+  });
+
+  return {
+    data,
+    totalCount,
+    totalPages: Math.ceil(totalCount / limit),
+    currentPage: page,
+    limit,
+  };
 };
