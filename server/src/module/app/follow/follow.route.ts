@@ -16,6 +16,9 @@ const followRouter = Router();
 // get my followers list
 followRouter.get("/followers-list", userAuth, getFollowersList);
 
+// get list of users I follow
+followRouter.get("/following-list", userAuth, getFollowingList);
+
 // send a follow request to another user
 followRouter.post("/request/:targetUserId", userAuth, sendFollowRequest);
 

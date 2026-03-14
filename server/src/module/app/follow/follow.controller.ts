@@ -220,3 +220,39 @@ export const getFollowersList = async (
   }
 };
  
+
+
+// get following list
+
+export const getFollowingList = async (
+  req: AuthRequest,
+  res: Response
+): Promise<void> => {
+
+  try {
+
+    const currentUserId = req.userId as string;
+
+    const { page, limit, skip } = getPagination(req);
+ 
+    const result = await getFollowingListService(currentUserId, page, limit, skip);
+ 
+    res.status(200).json({ 
+      success: true, 
+      message: "Following list fetched", 
+      ...result 
+    });
+
+  } catch (err) {
+
+    const errorMessage = err instanceof Error 
+    ? err.message 
+    : String(err);
+    res.status(500).json({ 
+      success: false, 
+      message: `Failed to get following list. ${errorMessage}`
+    });
+
+  }
+};
+ 
